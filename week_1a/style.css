@@ -1,0 +1,44 @@
+p{
+    color:rebeccapurple;
+    font-size: 20px;
+}
+h1{
+    color:darkmagenta;
+    text-align: center;
+    padding: 25px 50px 75px 100px;
+}
+h2{
+    color:rgb(11, 106, 184);
+    text-align: center;
+    text-shadow: 2px 2px navajowhite;
+}
+body{
+    background-color: darkgrey;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a{
+    background-color: rgba(222, 225, 65, 0.541);
+    text-decoration: none;
+}
+
+#page-title {
+    text-shadow: 4px 4px darkorange
+}
+#favorite-music-name{
+    background-color: plum;
+}
+.favorite-section{
+    border: 5px black solid;
+    margin: 5px;
+}
+
+table, th, td{
+    border: 1px solid red;
+}
+
+/*this is a comment*/
+
+#author{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

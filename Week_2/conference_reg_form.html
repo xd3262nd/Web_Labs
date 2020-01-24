@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <title>Conference Registration Form</title>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width', initial-scale=1, shrink-to-fit=no>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel='stylesheet' href='reg_form.css' type='text/css'>
+
+    <link href="https://fonts.googleapis.com/css?family=Arvo|Josefin+Sans|Zilla+Slab&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body class='m-5'>
+    
+    <div class='jumbotron'>
+        <h1>Please provide the information to register for the conference.</h1>
+    </div>
+
+
+    <div class='row'><!--start of new row-->
+
+        <div class='col-md-7'>
+             
+            <form class='ml-5'>
+                <p class='demo'>
+                    <label class='info' for='name'>Name: </label><br><input id='name' name='name' type='text' required>
+                </p>
+
+                <p class='demo'>
+                    <label class='info' for='password'>Password: </label><br><input id='password' name='password' type='password' required></input>
+                </p>
+
+                <p class='demo'>
+                    <label class='info' for='email'>Email: </label><br><input id='email' name='email' type='email' required>
+                </p>
+
+        </div>
+
+
+        <div class='col-md-5'>
+        
+            
+
+                <p>
+                    <label class='conference' for='t-shirt-size'>T-shirt size</label><br> 
+                    <select required>
+                        <option>Small</option>
+                        <option>Medium</option>
+                        <option>Large</option>
+                    </select>
+
+                </p>
+
+                <p>
+                    <label class='info' for='dob'>Date of Birth: </label><br>
+                    <input id='dob' name='dob' type='date' required>
+                </p>
+
+                <p class='conference' class='subscription'>
+                    Do you want to receive any emails from conference sponsors? 
+                </p>
+
+                <div class='form-check'>
+                    <input name='participant' id='yes' class='form-check-input' type='radio' required>
+                    <label for='yes' class='form-check-label'>Yes</label>
+                </div>
+                
+                <div class='form-check'>
+                        <input name='participant' id='no' class='form-check-input' type='radio' required>
+                        <label for='no' class='form-check-label'>No</label>
+                </div>
+                
+                <p class='conference' class='session'>
+                    
+                    Which conference sessions are you planning to join?
+
+                </p>
+
+
+
+
+                <div class='conference' class='input-group mb-3'>
+                    <div class='input-group-prepend'>
+                        <div class='input-group-text'>
+                        <input name='session' id='morning' class='attending-input' type='checkbox'>
+                        <label for='morning' class='attending-label' class='form-control'> Morning</label>
+                        </div>  
+                    </div>
+                </div>
+
+                <div class='conference' class='input-group mb-3'>
+                        <div class='input-group-prepend'>
+                            <div class='input-group-text'>
+                                <input name='session' id='afternoon' class='attending-input' type='checkbox'>
+                                <label for='afternoon' class='attending-label' class='form-control'>Afternoon</label>
+                            </div>  
+                        </div>
+                    </div>
+
+
+                <p> 
+                    <label class='extra' for='request'>Any special request? </label><br>
+                    <textarea row='7' cols='70'>
+
+                    </textarea>
+                </p>
+
+                <br>
+                
+                <div>
+                    <input class='btn btn-info mt-2' type='submit'>
+                </div>
+                
+                <br>
+
+            </form>
+        
+        </div><!--end of second column-->
+    
+    
+    </div><!--end of the rows-->
+
+
+
+</body>
+
+</html> 

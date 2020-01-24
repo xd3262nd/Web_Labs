@@ -1,0 +1,15 @@
+#real-alert{
+    color: red;
+}
+
+#test-only{
+    color:beige;
+}
+
+#title{
+    background-color: darkmagenta;
+}
+
+body{
+    background-color: darkslategray;
+}

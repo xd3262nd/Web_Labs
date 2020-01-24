@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <title>Favorite Programs</title>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width', initial-scale=1, shrink-to-fit=no>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel='stylesheet' href='programming.css' type='text/css'>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans+Condensed:300|ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+
+
+
+
+</head>
+
+<body class='m-3'>
+    
+    <div class='jumbotron'>
+        <h1>Task Manager Program</h1>
+    </div>
+
+    <div class='row'><!--start of new row-->
+        <div class='col-md-5'><!--first column-->
+            <div>
+                <h2>Description</h2>
+                <p>This program is mainly to deal with your to-do list. It is a very intuitive applications and easy to navigate around.</p>
+
+            </div>
+
+        </div> <!--end of first column-->
+
+        <div class='col-md-7'> <!--second column-->
+            
+            <p>Here is some of the code example:</p>
+            <pre><code id='code'>
+                public static void main(String[] args) {
+
+                    //store the db link as a string
+                    String databaseURI = DBConfig.dbURI;
+            
+                    ListStore store = new ListStore(databaseURI);
+                    ListController controller = new ListController(store);
+                    todoGUI = new ToDoListManager(controller);
+            
+                }
+            </code></pre>
+        
+        </div><!--end of second column-->
+    
+    
+    </div><!--end of the rows-->
+
+
+
+</body>
+
+</html> 

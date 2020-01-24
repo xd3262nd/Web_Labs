@@ -1,0 +1,22 @@
+h1{
+    color: goldenrod;
+    text-align: center;
+    font-size: 40px;
+
+}
+
+.jumbotron{
+    background-color: blue;
+}
+
+#code{
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+}
+
+body{
+    background-color: darkgrey;
+}
+
+h2{
+    font-family: 'Montserrat', sans-serif;
+}

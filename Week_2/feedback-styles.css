@@ -1,0 +1,20 @@
+.info{
+    color: lightslategray;
+    font-family: 'Bangers', cursive;
+    font-size: 20px;
+    
+}
+
+.jumbotron{
+    background-color: lemonchiffon;
+    
+}
+.Identity{
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    font-size: 20px;
+}
+
+body{
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #f5fc90;
+}
