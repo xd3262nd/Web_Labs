@@ -1,9 +1,11 @@
 #real-alert{
     color: red;
+    font-size: 40%;
 }
 
 #test-only{
     color:beige;
+    font-size:40%;
 }
 
 #title{
