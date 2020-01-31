@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title></title>
+</head>
+<body>
+
+<h1>Input Forms</h1>
+
+    <p>Enter text that you want to add into the list:</p>
+    <input type='text' id='user-input'>
+    <button id='save-input'>Save</button>
+
+    <ul id='input-list'>
+        <!--Build on JavaScript-->
+    </ul>
+
+    <button id='clear'>Clear</button>
+
+
+<script>
+
+    let saveButton = document.querySelector('#save-input');
+    let userInput = document.querySelector('#user-input');
+
+    let clearButton = document.querySelector('#clear');
+
+    var inputList = document.querySelector('#input-list');
+
+    let counts = 0;
+
+    saveButton.addEventListener('click', function(){
+        let input = userInput.value
+        
+        if (input.length>=1 && input.length<=50){
+            let listItem = document.createElement('li');
+            listItem.innerHTML = input;
+            if(counts <11){
+            inputList.appendChild(listItem);
+            counts += 1
+            userInput.value = ''
+            
+            } else {
+            userInput.value=''
+            }
+        
+        } else if (input.length>50){
+            alert('Error Message. Your input is too long')
+        } else if (input.length<1){
+            console.log('No input')
+        }
+
+
+       
+
+    })
+
+    clearButton.addEventListener('click', function(){
+        inputList.innerHTML = ''
+        counts = 0;
+
+
+    })
+    //DO I NEED TO USE console.log() ??
+
+</script>
+
+</body>
+</html>
