@@ -31,10 +31,11 @@
 
     saveButton.addEventListener('click', function(){
         let input = userInput.value
-        
+        // Validation for the input length
         if (input.length>=1 && input.length<=50){
             let listItem = document.createElement('li');
             listItem.innerHTML = input;
+            // validation of how many items there is
             if(counts <11){
             inputList.appendChild(listItem);
             counts += 1
@@ -61,7 +62,6 @@
 
 
     })
-    //DO I NEED TO USE console.log() ??
 
 </script>
 
