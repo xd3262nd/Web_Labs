@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title></title>
+</head>
+<body>
+
+    <p>What is the capital of Wisconsin?</p>
+
+    <button class='wrong-answer'>Bayfield</button>
+
+    <button id='correct-answer'>Madison</button>
+    <button class='wrong-answer'>Milwaukee</button>
+
+
+    <p id='result'></p>
+
+<script>
+
+    // Select the correct answer button by ID
+    let correctAnswerButton = document.querySelector('#correct-answer')
+
+
+    //Select the result paragraph by ID. This will be used to
+    //display a 'Correct answer!' message when the user clicks the correct button
+    let result = document.querySelector('#result')
+
+    let wrongAnswerButtons = document.querySelectorAll('.wrong-answer')
+
+    //forEach method on NodeList 
+    wrongAnswerButtons.forEach( function(wrongAnswerButton){
+        wrongAnswerButton.addEventListener('click', function(){
+            result.innerHTML = 'Wrong Answer! Please try again'
+            correctAnswerButton.style.background = 'white'
+        })
+    })
+
+    //Add event listener to the correct answer button
+    correctAnswerButton.addEventListener('click', function(){
+        result.innerHTML = 'Correct Answer!' //display message in the 'result' paragraph
+        correctAnswerButton.style.background = 'cyan'
+    
+    })
+
+</script>
+
+</body>
+</html>
