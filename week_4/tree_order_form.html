@@ -84,10 +84,12 @@
 
         let error = []
 
+        //Validation
         if(name === null || name==="" || !name){
             error.push('Enter the homeowner name')
         }
 
+        //checking if it is number
         if(houseNumber === null || houseNumber==="" || !houseNumber || isNaN(houseNumber)){
             error.push('Enter the house number')
         }
@@ -103,6 +105,7 @@
             error.push('Enter the city name')
         }
 
+        //checking for valid zipcode and value types
         if (zipCode<55001 || zipCode>56763){
             error.push('Enter a valid zip code between 55001 and 56763')
         } 
@@ -121,7 +124,6 @@
         
         // If a form element has not been completed, add an error message to the errors array (use push)
 
-        
         // TODO - If there are any errors after checking all of the elements, 
         // display an alert with all of the error messages (use join)
         // and then return from this function to prevent further processing 
@@ -129,7 +131,7 @@
 
         // TODO - If there are no errors, use a template string to display an order summary in the order summary paragraph
 
-        
+
 
 
     })

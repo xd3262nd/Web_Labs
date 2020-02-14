@@ -22,6 +22,7 @@ let iss_location = {
 // TODO Extract the latitude value, and log it to the console.
 // TODO Extract the longitude value, and log it to the console.
 
+
 console.log('Latitude: ' + iss_location['iss_position']['latitude'])
 console.log('Longitude: ' + iss_location['iss_position']['longitude'])
 
@@ -42,37 +43,35 @@ let rates = {
 
 // TODO write code to add a new property for Swiss Francs. Symbol is CHF, value is 1.1787.
 
-
+//adding new elements/property
 rates['CHF']= 1.1787
 
 // TODO if you had 100 Euros, write code to get the exchange rate from the object, then calculate 
 //      the equivalent value in Australian Dollars (AUD)
 
+
 var audRates = rates['AUD']
 var values = 100
 
+//created a function to do the conversion
 function conversion(exchangeRates, values){
   var convert = values * exchangeRates;
   return convert
 }
 
-
+//calling the function
 conversion(audRates, values);
 console.log('Conversion from Euros to Australian Dollars: '+conversion(audRates, values))
 
 
 // TODO write code to identify the currency symbol that has the highest exchange rate compared to Euros.
 //    In other words, identify the property with the largest value. the answer is BRL (Brazilian Real) at 3.8959 BRL to 1 Euro.
-/*
-let rates = {
-    "AUD": 1.5417,
-    "BGN": 1.9558,
-    "BRL": 3.8959,
-    "CAD": 1.5194
-};
-*/
+
+//setting the lowest to compare
 let low = 0
+//initialize the name to be printed later
 let name
+
 Object.keys(rates).forEach((e, index)=> {
   if(rates[e]>low){
     low = rates[e]
@@ -80,18 +79,9 @@ Object.keys(rates).forEach((e, index)=> {
   }
 })
 
-console.log(name)
+console.log(`The highest exchange rate is ${name}`)
 
-var arr = Object.keys( rates ).map(function ( key ) { return rates[key]; });
-var max = Math.max.apply( null, arr );
 
-var maxKey;
-for ( var key in rates){
-  if ( rates[key] === max){
-    maxKey = key;
-    console.log('This is the key' + maxKey )
-  }
-}
 
 
 /* c. Use this JavaScript array of objects of cat owners, and their cats. Source, moderncat.com
@@ -106,18 +96,23 @@ let cats_and_owners = [
 
 // TODO print Gary Oldman's cat's name
 for ( var i in cats_and_owners){
+
+  //getting each objects
   let each = cats_and_owners[i]
+  //checking the object's property if it matches with the name
   if(each.name === 'Gary Oldman'){
     console.log(`Gary Oldman's cat name is ${each.cat}`)
   }
 
 }
 // TODO Taylor Swift's cat is called 'Meredith'. Write code to add this data to the array.
+//adding data 
 cats_and_owners[cats_and_owners.length] = {name: "Taylor Swift", cat:"Meredith"}
 
 // TODO write a loop to print each cat owner, and their cat's name, one per line. Use the forEach style.
 
-
+//go through each objects
+//get the name of each objects and value
 cats_and_owners.forEach(function(elements){
   let ownerName = elements['name']
   let catName = elements['cat']
@@ -259,10 +254,10 @@ let nobel_prize_winners_2017 = {
 
 // TODO print the full name of the Literature Nobel laureate.
 
+//running the loop of the prizes objects and iterates within the objects
 nobel_prize_winners_2017.prizes.forEach(function(elements){
-
+  //get the value from the specifc property and iterates the value
   elements.laureates.forEach(function(values){
-    // console.log(values.firstname + ' ' + values.surname)
     console.log(`${values.firstname} ${values.surname}`) 
   })
 
@@ -270,7 +265,7 @@ nobel_prize_winners_2017.prizes.forEach(function(elements){
 
 // TODO print the ids of each of the Physics Nobel laureates. 
 //Your code should still work without modification if a laureate was added, or removed.
-
+//to store the data and able to print it from this list
 let idNum = []
 
 nobel_prize_winners_2017.prizes.forEach(function(elements){
