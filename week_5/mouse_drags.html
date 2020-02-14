@@ -90,10 +90,16 @@
     var rangeInput = document.querySelector('#radius-range')
     var rangeCode = rangeInput.value;
 
+    var colorInput = document.querySelector('#user_color')
+    var colorCode = colorInput.value;
+
+
     //Draw a filled rectangle centered under the mouse click
     //x, y is the top left corner, so shift up and left by 5 to center it under the mouse.
     context.beginPath();
     context.arc(x-10, y-50, rangeCode,0,2*Math.PI);   
+    context.fillStyle = colorCode;
+    context.fill();
     context.stroke();
  
     
