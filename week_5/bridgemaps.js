@@ -3,7 +3,6 @@ let usMap = [36,-96.30]
 let zoomLevel = 3.5
 
 // building a new icon class
-
 var bridgeIcon = L.Icon.extend({
     options: {
         iconSize:     [38, 95],
@@ -11,7 +10,7 @@ var bridgeIcon = L.Icon.extend({
         popupAnchor:  [-3, -76]
     }
 })
-
+//uploading the new bridge icon into the icon class
 var newIcon = new bridgeIcon({
     iconUrl: 'bridge.png'
 })
@@ -48,5 +47,3 @@ for (var i in bridges){
         .addTo(map)
 }
 
-// TODO Part 2a (Optional for extra credit +3 points) instead of the default marker, draw a bridge icon at the locations. You'll find a tutorial at Leaflet's website. Example icon: https://www.flaticon.com/free-icon/bridge_183412
-{/* <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> */}

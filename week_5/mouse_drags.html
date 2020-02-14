@@ -15,11 +15,6 @@
 </head>
 <body>
 
-<!-- TODO Draw a small circles instead of a square. 
-TODO Add an input type="color" to select the drawing color
-TODO Add an input type="range" to set the radius of the circles drawn, in effect setting the line width 
-TODO (Optional: Extra credit available for best drawing drawn with your program)-->
-
 <P>Click the mouse on the canvas</P>
 <canvas id="canvas" height="400" width="400"></canvas>
 
@@ -33,16 +28,20 @@ TODO (Optional: Extra credit available for best drawing drawn with your program)
 
 <script>
 
+  //setting up with the canvas and starting to edit on canvas
   var canvas = document.getElementById("canvas");
   var context = canvas.getContext("2d");
 
+  //setting as disable for mousedown
   var mousedown = false
 
+  //function to get the color input value
   function docolor(){
         var colorInput = document.querySelector('#user_color')
         var colorCode = colorInput.value;
     }
 
+    //function to get the range input value
    function dorange(){
         var rangeInput = document.querySelector('#radius-range')
         var rangeCode = rangeInput.value;
@@ -50,17 +49,20 @@ TODO (Optional: Extra credit available for best drawing drawn with your program)
 
   canvas.addEventListener("mousedown", function() {
     
+    //getting the mousdeown to be activated
     mousedown = true
 
+    //getting the code for color and range
     var colorInput = document.querySelector('#user_color')
     var colorCode = colorInput.value;
 
     var rangeInput = document.querySelector('#radius-range')
     var rangeCode = rangeInput.value;
     
-
+    //getting the coordinates for X and Y
     cx = event.pageX;
     cy = event.pageY;
+    //begin to draw the circle 
     context.beginPath();
 
     context.arc(cx-10, cy-50, rangeCode,0,2*Math.PI);
@@ -68,7 +70,7 @@ TODO (Optional: Extra credit available for best drawing drawn with your program)
     context.fill();
     context.stroke();
 
-    // context.fillRect(cx,cy, 10,10)
+    
 
   });
 
@@ -85,10 +87,13 @@ TODO (Optional: Extra credit available for best drawing drawn with your program)
     var x = event.pageX;
     var y = event.pageY;   //offsetX, offsetY, may not work in older browsers
 
+    var rangeInput = document.querySelector('#radius-range')
+    var rangeCode = rangeInput.value;
+
     //Draw a filled rectangle centered under the mouse click
     //x, y is the top left corner, so shift up and left by 5 to center it under the mouse.
     context.beginPath();
-    context.arc(x-10, y-50, 10,0,2*Math.PI);   
+    context.arc(x-10, y-50, rangeCode,0,2*Math.PI);   
     context.stroke();
  
     

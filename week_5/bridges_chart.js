@@ -18,10 +18,11 @@ let bridgeChart = new Chart(context, {
     options: {}
 })
 
+//The chart colors
 let chartColors = ['darkcyan', 'dodgerblue', 'violet', 'slateblue', 'coral']
 
 
-
+//function to be called
 function addData (name, span){
     bridgeChart.data.labels.push(name)
     bridgeChart.data.datasets[0].data.push(span)
