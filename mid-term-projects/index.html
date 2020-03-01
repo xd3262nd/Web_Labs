@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <title>Home</title>
+    
+
+    <link href="main.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    
+    <script async defer src="getData.js"></script>
+    <script async defer src="chartGenerator.js"></script>
+
+    <body>
+
+        <h1>Welcome to the program</h1>
+        <div class='mb-3'>
+            <label for='state1'>State 1 you want to view</label><br>
+            <input type='text' id='state1' name='state1'><br>
+            <div class="input-group-prepend">
+
+                <!-- TODO Work on the layout!  -->
+                <select class="custom-select" id="inputGroupSelect01">
+                        <option selected>Choose Year</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                </select>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+                <option selected>Choose Month</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+            </select>
+        
+
+            <label for='state2'> State 2 you want to view</label><br>
+            <input type='text' id='state2' name='state2'><br>
+        </div>
+        <p><a class="btn btn-primary btn-lg" href="#" id="Generate">Generate the Bar Chart here</a></p>
+
+        
+
+        <!-- TODO change it to the form style -->
+        <!-- <form>
+            <div class="row">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="First name">
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Last name">
+              </div>
+            </div>
+        </form> -->
+        <!-- TODO Make another page to generate the chart // on the bottom by using navbar and auto scrolling for the user -->
+        
+
+        <canvas id="resultChart"></canvas>
+
+
+
+
+    </body>
+
+
+
+
+</html>
