@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <title>Hello Vue</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+</head>
+
+
+
+
+<body>
+    <div id="app">
+        <h1>Hello Vue</h1>
+        <p>
+            {{message | uppercase }}
+        </p>
+
+        <button v-on:click="addExclamation">Add ! Here</button>
+        <button v-on:click="clearButton">Clear Here</button>
+    </div>
+
+    <script>
+
+        let global ='Hello';
+        
+
+        let app = new Vue({
+            el:'#app',
+            data: {
+                message: 'Hello',
+                points: 0
+            },
+            methods: {
+                
+                addExclamation: function(){
+                    if(this.points<10){
+                        //adding more excalmation marks
+                        this.message = this.message + '!'
+                        //to check when it reaches a certain amount of exclamation 
+                        this.points = this.points + 1
+                        
+
+                    }else{
+                        alert("You have reach the limit to add exclamation marks")
+                       
+                    }
+                    
+                },
+                clearButton: function(){
+
+                    this.message = global
+                }
+            },
+            filters: {
+                uppercase: function(string){
+                    return string.toUpperCase()
+                }
+            }
+        })
+    </script>
+
+
+
+
+</body>
+
+
+
+</html>
