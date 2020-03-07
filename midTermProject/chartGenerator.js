@@ -133,11 +133,14 @@ function generate(dataList) {
                 label: 'Dataset 1',
                 backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#FF5733"],
                 yAxisID: "y-axis-1",
+                // ! DATA is here
                 data: dataList
+
             }, {
                 label: 'Dataset 2',
                 backgroundColor: ['#8a8474'],
                 yAxisID: "y-axis-2",
+                // ! DATA is here
                 data: dataList
 
             }]
