@@ -1,5 +1,46 @@
 var chart = document.getElementById('resultChart').getContext('2d');
 
+var yearArray = [];
+var monthArray = ["12", "11", "10", "09", "08", "07", "06", "05", "04", "03", "02", "01"];
+
+var yearMonthTotal = [];
+
+var month = new Array();
+
+month[0] = "January";
+month[1] = "February";
+month[2] = "March";
+month[3] = "April";
+month[4] = "May";
+month[5] = "June";
+month[6] = "July";
+month[7] = "August";
+month[8] = "September";
+month[9] = "October";
+month[10] = "November";
+month[11] = "December";
+
+
+var wordsMonth = {}
+let counts = 11
+
+for(var x=0; x<month.length; x++){
+
+   if(x<10){
+       wordsMonth[month[x]] = monthArray[counts]
+       
+   }else{
+        wordsMonth[month[x]] = monthArray[counts]
+        
+   }
+    counts = counts - 1
+//    console.log(wordsMonth) {January: "01"}
+//  Object.keys(wordsMonth).forEach(function (el) {
+    //  console.log(el) //this will be the key
+    //  console.log(wordsMonth[key]) //this is the value "01"....
+
+// })
+}
 
 function generateYear(yearInput) {
     var start_year = new Date().getFullYear();
@@ -21,20 +62,7 @@ function generateMonth(monthInput){
     var choices = "";
 
 
-    var month = new Array();
-
-    month[0] = "January";
-    month[1] = "February";
-    month[2] = "March";
-    month[3] = "April";
-    month[4] = "May";
-    month[5] = "June";
-    month[6] = "July";
-    month[7] = "August";
-    month[8] = "September";
-    month[9] = "October";
-    month[10] = "November";
-    month[11] = "December";
+    
     // console.log(month[0])
 
     for (var i = 0 ; i<month.length; i++){
@@ -52,14 +80,6 @@ function generateMonth(monthInput){
 
     monthInput.innerHTML = choices
 }
-
-var yearArray = [];
-var monthArray = ["12", "11", "10", "09", "08", "07", "06", "05", "04", "03", "02", "01"];
-
-var yearMonthTotal = [];
-
-
-
 
 var yearA = document.getElementById('inputYear01')
 var monthA = document.getElementById('inputMonth01')
@@ -79,15 +99,11 @@ for(var i=0, l=yearA.childNodes.length; i<l; i++){
 
 }
 
-// for(var j =0, k=monthA.childNodes.length; j<k; j++){
-//     if(monthA.childNodes[j].nodeName === 'OPTION') monthArray.push(monthA.childNodes[j].value)
-// }
 
 for(var a = 0; a<yearArray.length; a++){
    prob(yearArray[a])
    
 }
-
 
 function prob(year){
 
@@ -98,8 +114,8 @@ function prob(year){
 
 }
 
-
 var year01;
+var month01;
 
 yearA.addEventListener('change', (e)=>{
     // TODO Should I try to create a new function for this?
@@ -115,29 +131,71 @@ yearA.addEventListener('change', (e)=>{
 monthA.addEventListener('change', (e)=>{
 
     var el = document.getElementById('inputMonth01');
-    var month01 = el.options[el.selectedIndex].value
+    month01 = el.options[el.selectedIndex].value
     // above this will be the user input for the selected Month they want to search for 
-    // TODO need to figure out how to pass it over to the API function to search for it. 
+    // console.log(month01)
+})
+
+var year02;
+var month02;
+
+yearB.addEventListener('change', (e)=>{
+    // TODO Should I try to create a new function for this?
+
+    var el = document.getElementById('inputYear01');
+    year02 = el.options[el.selectedIndex].value
+
+    // console.log(year01)
+    // alert(year01)
+    // console.log(year01) return the value of the selected year
+})
+
+monthB.addEventListener('change', (e)=>{
+
+    var el = document.getElementById('inputMonth01');
+    month02 = el.options[el.selectedIndex].value
+    // above this will be the user input for the selected Month they want to search for 
     // console.log(month01)
 })
 
 
 
-function generate(dataList) {
+
+function generate(dataA, monthList) {
+
+    // TODO Process the data here!
+
+    var monthLabels = []
+    for(var f=0; f<monthList.length; f++){
+
+        Object.keys(wordsMonth).forEach(function (el) {
+
+            if(wordsMonth[el] ===monthList[f]){
+                monthLabels.push(el)
+            }
+        })
+            //  console.log(el) //this will be the key
+            //  console.log(wordsMonth[key]) //this is the value "01"....
+    }
+    
+
+
+
+
     var newChart = new Chart(chart, {
 
         type: 'bar',
         data: {
-            labels: ["January", "February", "March", "April", "May", "June"],
+            labels: monthLabels,
             datasets: [{
-                label: 'Dataset 1',
+                label: 'state 1',
                 backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#FF5733"],
                 yAxisID: "y-axis-1",
                 // ! DATA is here
                 data: dataList
 
             }, {
-                label: 'Dataset 2',
+                label: 'state 2',
                 backgroundColor: ['#8a8474'],
                 yAxisID: "y-axis-2",
                 // ! DATA is here
@@ -189,7 +247,3 @@ function generate(dataList) {
 
 
 
-// ! QUESTION: 
-    // TODO need to figure out how to pass it over to the API function to search for it. 
-    //  TODO how to show the title for the dropdown list??
-    //  TODO need to go validate the input for the month and year to make sure it is not the same 

@@ -37,6 +37,7 @@ buttonEl.addEventListener("click", () => {
     var monthAValue = monthA.options[monthA.selectedIndex].value
     var monthBValue = monthB.options[monthB.selectedIndex].value
 
+
     // console.log(yearMonthTotal) 
 
     // var startYear = yearA.options[yearA.selectedIndex].value + monthA.options[monthA.selectedIndex].value
@@ -61,7 +62,7 @@ buttonEl.addEventListener("click", () => {
             end = yearBValue + monthBValue //201912
 
             dateList = indexFunction (start, end)
-            dateList.push(yearAValue, monthAValue, yearBValue, monthBValue)
+            // dateList.push(yearAValue, monthAValue, yearBValue, monthBValue)
 
 
             console.log(dateList)
@@ -79,9 +80,16 @@ buttonEl.addEventListener("click", () => {
         endYear = yearBValue + monthBValue
 
 
+        // var regExTest = /^\d{4}(\d{2})$/g
+
+        // var matchArr = regExTest.exec(startYear)
+
+        //console.log(matchArr) //print this ["201801", "01", index: 0, input: "201801", groups: undefined]
+
+
         //return list of index will have endDate first and startDate last
         dateList = indexFunction(startYear, endYear)
-        dateList.push(yearAValue, monthAValue, yearBValue, monthBValue)
+        // dateList.push(yearAValue, monthAValue, yearBValue, monthBValue)
         console.log(dateList)
 
     }
@@ -159,6 +167,10 @@ function retrieveID(stateName, indexList) {
 
 function retrieveData(id, indexList) {
 
+
+    //indexList is the index number of the DATE
+    
+
     // creating a key:value to store the data into 
     var listA = {}
     var listB = {}
@@ -190,23 +202,55 @@ function retrieveData(id, indexList) {
                 if(index >= indexList[0] && index <= indexList[1]){
                     listAData.unshift(el[1])
                     console.log(listAData)
-                    listA['"'+el[0]+ '"'] = el[1]  //this will add " "  to the year and month 
+                    listA[el[0]] = el[1]  //this will add " "  to the year and month 
                     // ex: "201912"
                     console.log(listA) //this is the objects of key and value 
+                    // console.log(Object.keys(listA)) //get the object keys
                 }
 
-                
+
+
+
+                // ! Need to create an object with this format
+                // ! let objects = {
+                //   month : ['01', '02', '03', '04'....]
+                //   year : ['2019', '2018']
+                //   dataA : []
+                // }
 
                 // console.log(el[0]) //print out all the date in the form of this --> 201912....
                 // console.log(el[1]) //print out the value 
                 // console.log(index) // index for the selected data
             })
 
+            let dateArray = Object.keys(listA)
+            console.log(dateArray) // print this ["201802", "201803", "201804", "201805", "201806", "201807", "201808", "201809", "201810", "201811", "201812", "201901", "201902", "201903", "201904", "201905", "201906", "201907", "201908", "201909", "201910", "201911", "201912"]
+
+            var months = []
+            for(var n = 0; n<dateArray.length; n++){
+                var converts = parseInt(dateArray[n])
+                // console.log(converts)
+                var regExTest = /^\d{4}(\d{2})$/g
+
+                var matchArr = regExTest.exec(converts)
+
+                
+
+                months.push(matchArr[1]) //this will print "01" inside the array
+                //console.log(matchArr) //print this ["201801", "01", index: 0, input: "201801", groups: undefined]
+            }
+
+            generate(listAData, months)
 
         })
         .catch(err => {
             console.log(err)
         })
+    
+
+
+    
+    
         
 
 
