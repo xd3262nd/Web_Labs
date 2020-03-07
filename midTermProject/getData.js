@@ -35,32 +35,7 @@ buttonEl.addEventListener("click", () => {
     var monthAValue = monthA.options[monthA.selectedIndex].value
     var monthBValue = monthB.options[monthB.selectedIndex].value
 
-
-
-    // console.log(yearArray)
     // console.log(yearMonthTotal) 
-    // 0: "201901"
-    // 1: "201902"
-    // 2: "201903"
-    // 3: "201904"
-    // 4: "201905"
-    // 5: "201906"
-    // 6: "201907"
-    // 7: "201908"
-    // 8: "201909"
-    // 9: "201910"
-    // 10: "201911"
-    // 11: "201912"
-    // 12: "201801"
-    // 13: "201802"
-
-
-
-  
-
-    var endDateList = []
-
-    var indexList = [] //arrange the end date first then start date last 
 
     // var startYear = yearA.options[yearA.selectedIndex].value + monthA.options[monthA.selectedIndex].value
     // // console.log(monthYearA)
@@ -71,6 +46,9 @@ buttonEl.addEventListener("click", () => {
         alert('please enter the correct order of year ')
     } else if (yearAValue === yearBValue){
 
+
+        // * this will be when having the same year
+
         if(monthAValue > monthBValue){
             alert('put valid month')
         }else{
@@ -80,23 +58,8 @@ buttonEl.addEventListener("click", () => {
             start = yearAValue + monthAValue //201901
             end = yearBValue + monthBValue //201912
 
-            // for(var i = start; i<end+1; i++){
-            //     dateList.push(i)
-            // }
-
             dateList = indexFunction (start, end)
             console.log(dateList)
-
-
-
-            // //getting the index of each date from the yMtotal
-            // for( var i =0; i<yearMonthTotal.length; i++){
-            //     if(yearMonthTotal[i] === end){
-            //         dateList.unshift(i)
-            //     }else if(yearMonthTotal[i] === start){
-            //         dateList.push(i)
-            //     }
-            // }
 
 
 
@@ -104,28 +67,15 @@ buttonEl.addEventListener("click", () => {
 
     }else{
 
+        // * this is when the year is different 
+        //combining the monthYear together
         startYear = yearAValue + monthAValue
         endYear = yearBValue + monthBValue
 
 
+        //return list will have endDate first and startDate last
         dateList = indexFunction(startYear, endYear)
         console.log(dateList)
-
-        // for( var j = 0; j < yearMonthTotal.length; j++){
-
-        //     if( yearMonthTotal[j] == endYear){
-        //         dateList.unshift(j)
-        //         console.log(dateList + "endYear")
-
-        //     }else if(yearMonthTotal[j] == startYear){
-        //         dateList.push(j)
-        //         console.log(dateList + "startyear")
-        //     }
-        // }
-        
-        // yearMonthTotal[i]
-
-
     }
     // console.log(dateList)
 
@@ -155,24 +105,17 @@ function indexFunction(start, end){
 
     var ar = []
 
-    // TODO Need to edit here - fix issues!
-
     for(var i = 0; i<yearMonthTotal.length; i++){
         if(yearMonthTotal[i] === end){
             ar.unshift(i)
-            console.log(ar + " hello")
+            // console.log(ar + " start")
         }else if(yearMonthTotal[i] === start ){
             ar.push(i)
-            console.log(ar + " hello")
+            // console.log(ar + " hello")
 
         }
     }
-
-    console.log(ar)
-
-
-
-
+    // console.log(ar)
     return ar
 
 }
