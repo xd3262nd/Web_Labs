@@ -5,7 +5,6 @@ var energyLink = 'https://api.eia.gov/series/?api_key=563a38170142e2aa6fea13b972
 
 // var url ='https://api.wheretheiss.at/v1/satellites/25544'
 
-//here
 
 var stateA = document.querySelector('#state1')
 var stateB = document.querySelector('#state2')
@@ -75,9 +74,6 @@ buttonEl.addEventListener("click", () => {
         if(monthAValue > monthBValue){
             alert('put valid month')
         }else{
-
-           
-
 
 
             // combine(monthAValue, monthBValue, yearAValue, yearBValue)
@@ -158,6 +154,8 @@ console.log(dateList)
 function indexFunction(start, end){
 
     var ar = []
+
+    // TODO Need to edit here - fix issues!
 
     for(var i = 0; i<yearMonthTotal.length; i++){
         if(yearMonthTotal[i] === end){
