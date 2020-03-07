@@ -21,7 +21,7 @@ var dataSetA = [];
 
 // // TODO overview: grab the user input start period and end period then construct an array complete list of date 
 // // TODO: then need to build dictionary or objects so can place the right value into the right key(this will be the period)
-// var dateList = []
+var dateList = []
 
 buttonEl.addEventListener("click", () => {
 
@@ -44,8 +44,8 @@ buttonEl.addEventListener("click", () => {
     // var endYear = yearB.options[yearB.selectedIndex].value + monthB.options[monthB.selectedIndex].value
 
     if (yearAValue > yearBValue){
-        
         alert('please enter the correct order of year ')
+
     } else if (yearAValue === yearBValue){
 
 
@@ -61,6 +61,9 @@ buttonEl.addEventListener("click", () => {
             end = yearBValue + monthBValue //201912
 
             dateList = indexFunction (start, end)
+            dateList.push(yearAValue, monthAValue, yearBValue, monthBValue)
+
+
             console.log(dateList)
 
 
@@ -70,14 +73,17 @@ buttonEl.addEventListener("click", () => {
     }else{
 
         // * this is when the year is different 
+
         //combining the monthYear together
         startYear = yearAValue + monthAValue
         endYear = yearBValue + monthBValue
 
 
-        //return list will have endDate first and startDate last
+        //return list of index will have endDate first and startDate last
         dateList = indexFunction(startYear, endYear)
+        dateList.push(yearAValue, monthAValue, yearBValue, monthBValue)
         console.log(dateList)
+
     }
     // console.log(dateList)
 
@@ -184,20 +190,12 @@ function retrieveData(id, indexList) {
                 if(index >= indexList[0] && index <= indexList[1]){
                     listAData.unshift(el[1])
                     console.log(listAData)
-                    listA['"'+el[0]+ '"'] = el[1]
-                    console.log(listA)
+                    listA['"'+el[0]+ '"'] = el[1]  //this will add " "  to the year and month 
+                    // ex: "201912"
+                    console.log(listA) //this is the objects of key and value 
                 }
 
-                // // ! How can I keep on adding based on the validation?
-                // if (el[0] <= "201906" && el[0] >= "201901" ) {
-
-                //     dataSetA.push(el[1])
-                //     console.log(dataSetA) //this is the dataset of the value 
-                //     // el[0] will be the user input of the year and month in it 
-
-                //     generate(dataSetA)
-
-                // }
+                
 
                 // console.log(el[0]) //print out all the date in the form of this --> 201912....
                 // console.log(el[1]) //print out the value 
