@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Sign In</title>
+    <script src="https://unpkg.com/vue@2.6.7/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="student.css" type="text/css">
+</head>
+
+<body>
+    <div id="app">
+
+        <!-- TODO show error alert -->
+        <div class="alert alert-danger" v-show="errors.length > 0 ">
+            <li v-for="error in errors">   {{error}}   </li>
+        </div>
+
+        <div class="card add-student m-2 p-2">
+            <h4 class="card-title">Add new student</h4>
+
+            <!-- ! this is where the form starts -->
+            <div class="form-group">
+                <label for="name">Name</label>
+                <!-- ? adding v-model.trim (modifier) trim off the whitespaces -->
+                <!-- ? will need to add an errors property in the Vue JS -->
+                <input id="name" class="form-control" v-model.trim="newStudentName">
+            </div>
+            <div class="form-group">
+                <label for="starID">Star ID</label>
+                <!-- TODO v-model -->
+                <input id="starID" class="form-control" v-model.trim="newStarID">
+            </div>
+
+            <!-- ! This is the button section -->
+            <!-- TODO v-on:click event handler -->
+            <button class="btn btn-primary" v-on:click.prevent="addStudent">Add</button>
+        </div>
+
+        <div class="card student-list m-2 p-2">
+            <h4 class="card-title">Students</h4>
+            <div id="student-table">
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>StarID</th>
+                        <th>Present?</th>
+                    </tr>
+                    <!-- TODO create table rows
+                    Each row will have a checkbox, bound to the app data
+                    When the checkbox is checked/unchecked, the student will be signed in/out 
+                    Add styles so present and absent student rows have different styles
+                     -->
+                     <tr v-for="student in students" v-bind:class="'present-'+student.present">
+                         <td>{{student.name}}</td>
+                         <td>{{student.starID}}</td>
+                         <!-- ! adding the present/absent checkbox by using v-model student.present -->
+                         <!-- ! can change the v-on with @; EX: @change for v-on:change -->
+                         <td> <input type = "checkbox" v-model = "student.present"  v-on:change = "checked(student)" > </td>
+                     </tr>
+
+                </table>
+            </div>
+        </div>
+
+        <transition name="fade">
+            <!-- TODO welcome or goodbye message -->
+            <div class = " alert alert-success" v-if="seeMessage"> {{message}} {{mostRecentSignIn}}</div>
+        </transition>
+    </div>
+
+    <script>
+
+        // TODO Create Vue app
+        //creating the vue object
+        let app = new Vue({
+            el : "#app",
+            data:{
+                newStudentName: '',
+                newStarID: '',
+                students: [ 
+                    { name: 'A. Jack', starID: 'as1234sd', present: false},
+                    { name: 'B. Joe', starID: 'sd1234ed', present: false},
+                    { name: 'C. Jack', starID: 'ui9829sd', present: false},
+                ],
+                errors: [],
+                message: '',
+                mostRecentSignIn: '', 
+                seeMessage: false,
+                        
+            },
+            //defining the addStudent function here
+            methods: {
+                addStudent() {
+                    //adding validation for the name and starID input 
+                    //if there is any empty string it will shows as false in JS
+
+                    // Adding the errors parameter here to be used later
+                    this.errors = []
+
+                // TODO modify this 
+
+            
+                    if ( this.newStudentName && this.newStarID ) {
+                        let student = { name: this.newStudentName, starID: this.newStarID }
+                        this.students.push(student)
+                        this.students.sort(function (s1,s2) {
+                            //returning -1 if the student should be before the second student
+                            //+1 if the student should be after second student
+                            return s1.name > s2.name ? 1 : -1
+                        })
+                        
+                        //re-setting the label to empty string
+                        this.newStudentName = ''
+                        this.newStarID = ''
+                    } 
+
+                    // <!-- ? Should I do the validation to check the alphabet and numebr of the input (structure)?? -->
+                    if ( !this.newStudentName){
+                        this.errors.push("Name is required")
+
+                        
+                    }
+
+                    if ( !this.newStarID){
+                        this.errors.push("starID is required")
+                    }
+                    // else {
+                    //     // Adding error message to the user
+                    //     this.errors.push('Name and starID are both required!')
+                    // }
+
+
+                    
+                },
+                //adding the properties from the checkbox
+                checked ( student ){
+                    this.message = student.present ? 'Welcome, ' : 'Goodbye, '
+                    this.mostRecentSignIn = student.name
+                    // this.seeMessage = true
+                    this.showMessage() 
+                    // call function instead of setting showMessage 
+                    // functions are useful in case other parts of the app need to show messages
+                },
+                showMessage() {
+                    this.seeMessage = true
+                    setTimeout( () => {
+                        this.seeMessage = false
+                    }, 3000) //change this for longer or shorter message visibility
+                }
+            }
+
+        })
+
+    </script>
+
+</body>
+
+</html>
