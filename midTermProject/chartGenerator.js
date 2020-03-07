@@ -54,7 +54,7 @@ function generateMonth(monthInput){
 }
 
 var yearArray = [];
-var monthArray = [12, 11, 10, 09, 08, 07, 06, 05, 04, 03, 02, 01];
+var monthArray = ["12", "11", "10", "09", "08", "07", "06", "05", "04", "03", "02", "01"];
 
 var yearMonthTotal = [];
 
@@ -133,11 +133,14 @@ function generate(dataList) {
                 label: 'Dataset 1',
                 backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#FF5733"],
                 yAxisID: "y-axis-1",
+                // ! DATA is here
                 data: dataList
+
             }, {
                 label: 'Dataset 2',
                 backgroundColor: ['#8a8474'],
                 yAxisID: "y-axis-2",
+                // ! DATA is here
                 data: dataList
 
             }]
