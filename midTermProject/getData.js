@@ -95,22 +95,37 @@ buttonEl.addEventListener("click", () => {
     }
     // console.log(dateList)
 
-        var letters = /^[A-Z a-z]+$/;
+    var letters = /^[A-Z a-z]+$/;
 
-        //  TODO Need to add the inputB (second state value in here too!)
-        if (!inputA || !inputB) {
-            stateA.value = ''
-            alert('Please enter your input')
-        } else if (!inputA.match(letters) || !inputB.match(letters)) {
+    var idA;
+    var idB;
 
-            stateA.value = ''
-            alert('Please enter letter only!')
-        } else {
+    var dataSetA = {};
+    var dataSetB = {};
 
-            retrieveID(inputA,dateList)
-            retrieveID(inputB, dateList)
+    //  TODO Need to add the inputB (second state value in here too!)
+    if (!inputA || !inputB) {
+        stateA.value = ''
+        alert('Please enter your input')
+    } else if (!inputA.match(letters) || !inputB.match(letters)) {
 
-        }   
+        stateA.value = ''
+        alert('Please enter letter only!')
+    } else {
+
+        idA = retrieveID(inputA,dateList)
+        idB = retrieveID(inputB, dateList)
+
+        //retrieveData(idA, idB, dateList) // TODO maybe can return list A objects with keys then combine in another function that will call generate()
+
+        dataSetA = retrieveData(idA, dateList)
+        dataSetB = retrieveData(idB, dateList)
+
+        conversion(dataSetA, dataSetB)
+
+        } 
+        
+        
     
 })
 
@@ -153,7 +168,10 @@ function retrieveID(stateName, indexList) {
 
 
                     if (stateID.match('.M')) {
-                        retrieveData(stateID, indexList)
+                        // retrieveData(stateID, indexList)
+                        console.log(stateID)
+                        return stateID
+
 
                     }
 
@@ -162,7 +180,11 @@ function retrieveID(stateName, indexList) {
         })
         .catch(err => {
             console.log(err)
+            return err
         })
+
+    // return stateID
+
 }
 
 function retrieveData(id, indexList) {
@@ -175,10 +197,11 @@ function retrieveData(id, indexList) {
     var listA = {}
     var listB = {}
     var listAData = []
+    var listBData = []
     
 
-    fetch(energyLink + id)
-        .then(resultA => resultA.json())
+    return fetch(energyLink + id)
+        .then(result => result.json())
         .then(data => {
 
             // console.log(dataA)
@@ -208,50 +231,77 @@ function retrieveData(id, indexList) {
                     // console.log(Object.keys(listA)) //get the object keys
                 }
 
-
-
-
-                // ! Need to create an object with this format
-                // ! let objects = {
-                //   month : ['01', '02', '03', '04'....]
-                //   year : ['2019', '2018']
-                //   dataA : []
-                // }
-
                 // console.log(el[0]) //print out all the date in the form of this --> 201912....
                 // console.log(el[1]) //print out the value 
                 // console.log(index) // index for the selected data
             })
 
-            let dateArray = Object.keys(listA)
-            console.log(dateArray) // print this ["201802", "201803", "201804", "201805", "201806", "201807", "201808", "201809", "201810", "201811", "201812", "201901", "201902", "201903", "201904", "201905", "201906", "201907", "201908", "201909", "201910", "201911", "201912"]
+           
 
-            var months = []
-            for(var n = 0; n<dateArray.length; n++){
-                var converts = parseInt(dateArray[n])
-                // console.log(converts)
-                var regExTest = /^\d{4}(\d{2})$/g
+            // generate(listAData, months)
 
-                var matchArr = regExTest.exec(converts)
-
-                
-
-                months.push(matchArr[1]) //this will print "01" inside the array
-                //console.log(matchArr) //print this ["201801", "01", index: 0, input: "201801", groups: undefined]
-            }
-
-            generate(listAData, months)
+            return listA
 
         })
         .catch(err => {
             console.log(err)
+            return err
         })
+
+
+    // return listA
+
+    
+}
+
+
+
+function conversion(dataSetA, dataSetB){
+
+
+    let dateArrayA = Object.keys(dataSetA) //return an array of the key
+    let dateArrayB = Object.keys(dataSetB)
+
+
+    let valueA = Object.values(dataSetA)
+    let valueB = Object.values(dataSetB)
+
+
+    var months = [] //getting the month number ; example "01"
+
+    var dataValueA = []
+    var dataValueB = []
+
+
+    if(dateArrayA.length == dateArrayB.length){
+
+        console.log(dateArrayA) // print this ["201802", "201803", "201804", "201805", "201806", "201807", "201808", "201809", "201810", "201811", "201812", "201901", "201902", "201903", "201904", "201905", "201906", "201907", "201908", "201909", "201910", "201911", "201912"]
+
+        for(var n = 0; n<dateArrayA.length; n++){
+            var converts = parseInt(dateArrayA[n])
+            // console.log(converts)
+            var regExTest = /^\d{4}(\d{2})$/g
+
+            var matchArr = regExTest.exec(converts)
+
+            
+
+            months.push(matchArr[1]) //this will print "01" inside the array
+            //console.log(matchArr) //print this ["201801", "01", index: 0, input: "201801", groups: undefined]
+        }
+
+        generate(valueA, valueB, month)
+
+    }
+
     
 
 
+
     
-    
-        
+
+
+
 
 
 }

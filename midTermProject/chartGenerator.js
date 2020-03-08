@@ -161,7 +161,7 @@ monthB.addEventListener('change', (e)=>{
 
 
 
-function generate(dataA, monthList) {
+function generate(dataA,dataB, monthList) {
 
     // TODO Process the data here!
 
@@ -179,9 +179,6 @@ function generate(dataA, monthList) {
     }
     
 
-
-
-
     var newChart = new Chart(chart, {
 
         type: 'bar',
@@ -192,14 +189,14 @@ function generate(dataA, monthList) {
                 backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#FF5733"],
                 yAxisID: "y-axis-1",
                 // ! DATA is here
-                data: dataList
+                data: dataA
 
             }, {
                 label: 'state 2',
                 backgroundColor: ['#8a8474'],
                 yAxisID: "y-axis-2",
                 // ! DATA is here
-                data: dataList
+                data: dataB
 
             }]
         },
