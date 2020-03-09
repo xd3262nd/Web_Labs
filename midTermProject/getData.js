@@ -38,11 +38,6 @@ buttonEl.addEventListener("click", () => {
     var monthBValue = monthB.options[monthB.selectedIndex].value
 
 
-    // console.log(yearMonthTotal) 
-
-    // var startYear = yearA.options[yearA.selectedIndex].value + monthA.options[monthA.selectedIndex].value
-    // // console.log(monthYearA)
-    // var endYear = yearB.options[yearB.selectedIndex].value + monthB.options[monthB.selectedIndex].value
 
     if (yearAValue > yearBValue){
         alert('please enter the correct order of year ')
@@ -80,12 +75,6 @@ buttonEl.addEventListener("click", () => {
         endYear = yearBValue + monthBValue
 
 
-        // var regExTest = /^\d{4}(\d{2})$/g
-
-        // var matchArr = regExTest.exec(startYear)
-
-        //console.log(matchArr) //print this ["201801", "01", index: 0, input: "201801", groups: undefined]
-
 
         //return list of index will have endDate first and startDate last
         dateList = indexFunction(startYear, endYear)
@@ -93,7 +82,6 @@ buttonEl.addEventListener("click", () => {
         console.log(dateList)
 
     }
-    // console.log(dateList)
 
     var letters = /^[A-Z a-z]+$/;
 
@@ -103,7 +91,6 @@ buttonEl.addEventListener("click", () => {
     var dataSetA = {};
     var dataSetB = {};
 
-    //  TODO Need to add the inputB (second state value in here too!)
     if (!inputA || !inputB) {
         stateA.value = ''
         alert('Please enter your input')
@@ -113,15 +100,15 @@ buttonEl.addEventListener("click", () => {
         alert('Please enter letter only!')
     } else {
 
-        idA = retrieveID(inputA,dateList)
-        idB = retrieveID(inputB, dateList)
+        retrieveID(inputA,dateList)
+        // retrieveID(inputB, dateList)
 
         //retrieveData(idA, idB, dateList) // TODO maybe can return list A objects with keys then combine in another function that will call generate()
 
-        dataSetA = retrieveData(idA, dateList)
-        dataSetB = retrieveData(idB, dateList)
+        // dataSetA = retrieveData(idA, dateList)
+        // dataSetB = retrieveData(idB, dateList)
 
-        conversion(dataSetA, dataSetB)
+        // conversion(dataSetA, dataSetB)
 
         } 
         
@@ -154,6 +141,8 @@ function indexFunction(start, end){
 
 function retrieveID(stateName, indexList) {
 
+    // let stateID;
+    
     fetch(stateIDList)
         .then(res => res.json())
         .then(stateData => {
@@ -168,9 +157,9 @@ function retrieveID(stateName, indexList) {
 
 
                     if (stateID.match('.M')) {
-                        // retrieveData(stateID, indexList)
-                        console.log(stateID)
-                        return stateID
+                        retrieveData(stateID, indexList)
+                        //console.log(stateID)
+                        //return stateID
 
 
                     }
@@ -180,10 +169,10 @@ function retrieveID(stateName, indexList) {
         })
         .catch(err => {
             console.log(err)
-            return err
+            //return err
         })
 
-    // return stateID
+   // return stateID
 
 }
 
@@ -200,16 +189,18 @@ function retrieveData(id, indexList) {
     var listBData = []
     
 
-    return fetch(energyLink + id)
+    fetch(energyLink + id)
         .then(result => result.json())
-        .then(data => {
+        .then(datas => {
+
+            console.log(datas)
 
             // console.log(dataA)
             // console.log(dataA.series[0].data) //produce array of all the data 
             //data in the form of this
             //0: (2) ["201912", 571.24533]
             // 1: (2) ["201911", 527.86132]
-            data.series[0].data.forEach(function(el, index) {
+            datas.series[0].data.forEach(function(el, index) {
 
                 console.log(el) // el is the each array of ["201911", 15065.73011] 
                 //for loop here will go through each value [0]: key , [1] is the value 
@@ -234,25 +225,40 @@ function retrieveData(id, indexList) {
                 // console.log(el[0]) //print out all the date in the form of this --> 201912....
                 // console.log(el[1]) //print out the value 
                 // console.log(index) // index for the selected data
+
+                transfer(listA)
             })
-
-           
-
-            // generate(listAData, months)
-
-            return listA
 
         })
         .catch(err => {
             console.log(err)
-            return err
         })
 
 
-    // return listA
-
-    
+    //return listA
 }
+
+let setA = {}
+let setB = {}
+
+function transfer(dataObjects){
+    var inputB = stateB.value.toLowerCase()
+
+
+    if(Object.keys(setA).length === 0){
+        setA = dataObjects
+    }else if(Object.keys(setB).length === 0){
+        setB = dataObjects
+    }else{
+        retrieveID(inputB, dateList)
+    }
+
+}
+
+while(Object.keys(setA).length === Object.keys(setB).length && Object.keys(setA).length >0 && Object.keys(setB).length >0){
+    conversion(setA, setB)
+}
+
 
 
 
