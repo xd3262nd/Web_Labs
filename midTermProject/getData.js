@@ -100,15 +100,50 @@ buttonEl.addEventListener("click", () => {
         alert('Please enter letter only!')
     } else {
 
-        retrieveID(inputA,dateList)
+        let idA = retrieveID(inputA,dateList, dataProcess)
+        let idB = retrieveID(inputB,dateList, dataProcess)
+
+        console.log(idA, idB)
+
+        retrieveData(idA, dateList)
+
+        retrieveData(idB, dateList)
+
         // retrieveID(inputB, dateList)
 
         //retrieveData(idA, idB, dateList) // TODO maybe can return list A objects with keys then combine in another function that will call generate()
 
-        // dataSetA = retrieveData(idA, dateList)
+        // retrieveData(idA, dateList,retrieveData )
         // dataSetB = retrieveData(idB, dateList)
 
         // conversion(dataSetA, dataSetB)
+
+        // function getCatFact(callback){ // argument is a function
+        //     fetch('https://catfact.ninja/fact')
+        //     .then(data => data.json())
+        //     .then(factJson => {
+        //        // Call the function provided as an argument
+        //       callback(factJson)
+        //     })
+            
+        //     alert('end of getCatFact function') // this is the first alert you will see
+        //     }
+            
+            
+        //   // Call function, provide another function as an argument
+        //     getCatFact(function(){
+        //       alert('fact is: ' + fact) //second alert  
+        //     })
+
+
+        // function functionOne(x) { alert(x); }
+
+        // function functionTwo(var1, callback) {
+        //     callback(var1);		
+        // }
+
+        // functionTwo(2, functionOne);
+
 
         } 
         
@@ -139,7 +174,7 @@ function indexFunction(start, end){
 
 }
 
-function retrieveID(stateName, indexList) {
+function retrieveID(stateName, indexList, callback) {
 
     // let stateID;
     
@@ -147,36 +182,66 @@ function retrieveID(stateName, indexList) {
         .then(res => res.json())
         .then(stateData => {
 
-            stateData.category.childseries.forEach(function(element, index) {
-                //console.log(element.name) get all the name of the list
-                var dataNameList = element.name.toLowerCase()
+            // stateData.category.childseries.forEach(function(element, index) {
+            //     //console.log(element.name) get all the name of the list
+            //     var dataNameList = element.name.toLowerCase()
 
-                if (dataNameList.includes(stateName) && dataNameList.includes('monthly')) {
+            //     if (dataNameList.includes(stateName) && dataNameList.includes('monthly')) {
 
-                    let stateID = element.series_id //id to get the specific data for the state
-
-
-                    if (stateID.match('.M')) {
-                        retrieveData(stateID, indexList)
-                        //console.log(stateID)
-                        //return stateID
+            //         let stateID = element.series_id //id to get the specific data for the state
 
 
-                    }
+            //         if (stateID.match('.M')) {
+            //             // retrieveData(stateID, indexList)
+            //             //console.log(stateID)
+            //             //return stateID
+            //             callback(stateID, indexList)
 
-                }
-            })
+
+            //         }
+
+            //     }
+            // })
+            callback(stateData, stateName)
+
         })
-        .catch(err => {
-            console.log(err)
-            //return err
-        })
+        console.log('inside retriveID')
+        // .catch(err => {
+        //     console.log(err)
+        //     //return err
+        // })
 
    // return stateID
 
 }
 
+function dataProcess(dataSet, stateName){
+
+    dataSet.category.childseries.forEach(function(element, index) {
+        //console.log(element.name) get all the name of the list
+        var dataNameList = element.name.toLowerCase()
+
+        if (dataNameList.includes(stateName) && dataNameList.includes('monthly')) {
+
+            let stateID = element.series_id //id to get the specific data for the state
+
+
+            if (stateID.match('.M')) {
+                // retrieveData(stateID, indexList)
+                //console.log(stateID)
+                return stateID
+                // callback(stateID, indexList)
+
+
+            }
+
+        }
+    })
+
+}
+
 function retrieveData(id, indexList) {
+    console.log(id + 'the state id')
 
 
     //indexList is the index number of the DATE
@@ -220,13 +285,15 @@ function retrieveData(id, indexList) {
                     // ex: "201912"
                     console.log(listA) //this is the objects of key and value 
                     // console.log(Object.keys(listA)) //get the object keys
+                    // callback(listA)
+                    transfer(listA)
                 }
 
                 // console.log(el[0]) //print out all the date in the form of this --> 201912....
                 // console.log(el[1]) //print out the value 
                 // console.log(index) // index for the selected data
 
-                transfer(listA)
+                // transfer(listA)
             })
 
         })
@@ -242,15 +309,13 @@ let setA = {}
 let setB = {}
 
 function transfer(dataObjects){
-    var inputB = stateB.value.toLowerCase()
+    // var inputB = stateB.value.toLowerCase()
 
 
     if(Object.keys(setA).length === 0){
         setA = dataObjects
     }else if(Object.keys(setB).length === 0){
         setB = dataObjects
-    }else{
-        retrieveID(inputB, dateList)
     }
 
 }
