@@ -100,14 +100,16 @@ buttonEl.addEventListener("click", () => {
         alert('Please enter letter only!')
     } else {
 
-        let idA = retrieveID(inputA,dateList, dataProcess)
-        let idB = retrieveID(inputB,dateList, dataProcess)
+        retrieveID(inputA,dateList, dataProcess)
+        retrieveID(inputB,dateList, dataProcess)
 
-        console.log(idA, idB)
+        // let idA = dataProcess(dataSETAPI, inputA)
+        // let idB = dataProcess(dataSETAPI, inputB)
+        // console.log(idA, idB)
 
-        retrieveData(idA, dateList)
+        // retrieveData(idA, dateList)
 
-        retrieveData(idB, dateList)
+        // retrieveData(idB, dateList)
 
         // retrieveID(inputB, dateList)
 
@@ -174,13 +176,17 @@ function indexFunction(start, end){
 
 }
 
+
 function retrieveID(stateName, indexList, callback) {
 
     // let stateID;
     
-    fetch(stateIDList)
-        .then(res => res.json())
-        .then(stateData => {
+    fetch(stateIDList).then(res => {
+        console.log(res)
+        return res.json()
+    })
+    .then(stateData => {
+        console.log(stateData)
 
             // stateData.category.childseries.forEach(function(element, index) {
             //     //console.log(element.name) get all the name of the list
@@ -202,20 +208,24 @@ function retrieveID(stateName, indexList, callback) {
 
             //     }
             // })
-            callback(stateData, stateName)
+            let test = [1,2,3,4,5];
+            // callback(stateData, stateName)
+            callback(stateData, stateName, indexList)
 
         })
         console.log('inside retriveID')
-        // .catch(err => {
-        //     console.log(err)
-        //     //return err
-        // })
+        .catch(err => {
+            console.log(err)
+            //return err
+        })
 
    // return stateID
 
 }
+let idA;
+let idB;
 
-function dataProcess(dataSet, stateName){
+function dataProcess(dataSet, stateName, indexList){
 
     dataSet.category.childseries.forEach(function(element, index) {
         //console.log(element.name) get all the name of the list
@@ -226,17 +236,27 @@ function dataProcess(dataSet, stateName){
             let stateID = element.series_id //id to get the specific data for the state
 
 
-            if (stateID.match('.M')) {
-                // retrieveData(stateID, indexList)
-                //console.log(stateID)
-                return stateID
-                // callback(stateID, indexList)
+            console.log(stateID)
+            retrieveData(stateID, indexList)
 
 
-            }
+            // return stateID
+            // if (stateID.match('.M')) {
+            //     // retrieveData(stateID, indexList)
+            //     //console.log(stateID)
+            //     return stateID
+            //     // callback(stateID, indexList)
+
+
+            // }
 
         }
+
+
+
     })
+    // return stateID
+
 
 }
 
@@ -361,6 +381,7 @@ function conversion(dataSetA, dataSetB){
             //console.log(matchArr) //print this ["201801", "01", index: 0, input: "201801", groups: undefined]
         }
 
+        console.log("this is from the last function", valueA, valueB, month)
         generate(valueA, valueB, month)
 
     }
