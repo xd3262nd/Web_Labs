@@ -211,9 +211,10 @@ function retrieveID(stateName, indexList, callback) {
             let test = [1,2,3,4,5];
             // callback(stateData, stateName)
             callback(stateData, stateName, indexList)
+            console.log('inside retriveID')
+
 
         })
-        console.log('inside retriveID')
         .catch(err => {
             console.log(err)
             //return err
@@ -237,6 +238,7 @@ function dataProcess(dataSet, stateName, indexList){
 
 
             console.log(stateID)
+            console.log(indexList)
             retrieveData(stateID, indexList)
 
 
@@ -273,12 +275,13 @@ function retrieveData(id, indexList) {
     var listAData = []
     var listBData = []
     
+    fetch(energyLink + id).then(res =>{
+        console.log(res)
+        return res.json()
+    })
+    .then(datas => {
 
-    fetch(energyLink + id)
-        .then(result => result.json())
-        .then(datas => {
-
-            console.log(datas)
+        console.log(datas)
 
             // console.log(dataA)
             // console.log(dataA.series[0].data) //produce array of all the data 
@@ -289,25 +292,23 @@ function retrieveData(id, indexList) {
 
                 console.log(el) // el is the each array of ["201911", 15065.73011] 
                 //for loop here will go through each value [0]: key , [1] is the value 
-                // for (var i = 0; i < el.length; i++){
-                //     console.log(el[i])
-                // }
-
-
-                // console.log(indexList[1]) //this is the startYear
-                // console.log(indexList[0]) //endYear
-
-
+     
                 if(index >= indexList[0] && index <= indexList[1]){
                     listAData.unshift(el[1])
-                    console.log(listAData)
+                    // console.log(listAData)
                     listA[el[0]] = el[1]  //this will add " "  to the year and month 
                     // ex: "201912"
-                    console.log(listA) //this is the objects of key and value 
+                    console.log(listA + " the object list for " + id) //this is the objects of key and value 
                     // console.log(Object.keys(listA)) //get the object keys
                     // callback(listA)
-                    transfer(listA)
+                    
                 }
+                
+
+
+
+                
+               
 
                 // console.log(el[0]) //print out all the date in the form of this --> 201912....
                 // console.log(el[1]) //print out the value 
@@ -315,11 +316,18 @@ function retrieveData(id, indexList) {
 
                 // transfer(listA)
             })
+            let distance = indexList[1] - indexList[0] + 1;
 
-        })
-        .catch(err => {
-            console.log(err)
-        })
+            objectLenght = Object.keys(listA).length; 
+            if(objectLenght == distance){
+                transfer(listA)
+            }
+
+    })
+    .catch(err => {
+        console.log(err)
+    })
+        
 
 
     //return listA
@@ -328,28 +336,40 @@ function retrieveData(id, indexList) {
 let setA = {}
 let setB = {}
 
+let count = 0
+
 function transfer(dataObjects){
     // var inputB = stateB.value.toLowerCase()
 
+    
 
-    if(Object.keys(setA).length === 0){
+    if(count == 0){
         setA = dataObjects
-    }else if(Object.keys(setB).length === 0){
+        count += 1
+        
+
+    }else if(count >0){
         setB = dataObjects
+        
     }
 
+    while(Object.keys(setA).length === Object.keys(setB).length && Object.keys(setA).length >0 && Object.keys(setB).length >0){
+        conversion(setA, setB)
+    }
+
+    
+
 }
 
-while(Object.keys(setA).length === Object.keys(setB).length && Object.keys(setA).length >0 && Object.keys(setB).length >0){
-    conversion(setA, setB)
-}
+
+
 
 
 
 
 function conversion(dataSetA, dataSetB){
 
-
+    console.log('Calling from conversion function')
     let dateArrayA = Object.keys(dataSetA) //return an array of the key
     let dateArrayB = Object.keys(dataSetB)
 
@@ -381,8 +401,8 @@ function conversion(dataSetA, dataSetB){
             //console.log(matchArr) //print this ["201801", "01", index: 0, input: "201801", groups: undefined]
         }
 
-        console.log("this is from the last function", valueA, valueB, month)
-        generate(valueA, valueB, month)
+        console.log("this is from the last function", valueA, valueB, months)
+        generate(valueA, valueB, months)
 
     }
 
