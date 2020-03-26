@@ -34,13 +34,21 @@ for(var x=0; x<month.length; x++){
         
    }
     counts = counts - 1
-//    console.log(wordsMonth) {January: "01"}
-//  Object.keys(wordsMonth).forEach(function (el) {
-    //  console.log(el) //this will be the key
-    //  console.log(wordsMonth[key]) //this is the value "01"....
-
-// })
 }
+
+
+function capitalizeLetter( string ){
+    
+    let str = string.value
+    var pieces = str.split(" ");
+    for ( var i = 0; i < pieces.length; i++ )
+    {
+        var j = pieces[i].charAt(0).toUpperCase();
+        pieces[i] = j + pieces[i].slice(1).toLowerCase();
+    }
+    return pieces.join(" ");
+}
+
 
 function generateYear(yearInput) {
     var start_year = new Date().getFullYear();
@@ -49,35 +57,22 @@ function generateYear(yearInput) {
     for(var i=start_year-1; i>start_year-20; i--){
         choices +='<option value="' + i + '">' + i + '</option>';
     }
-
-    //here
     yearInput.innerHTML = choices;
 
 }
 
 
 function generateMonth(monthInput){
-    // var start_month = January
-
     var choices = "";
-
-
-    
-    // console.log(month[0])
 
     for (var i = 0 ; i<month.length; i++){
         var num = i+1;
         if (num<10){
             choices += '<option value="0' + num + '">' + month[i] + '</option>';
-            // console.log(choices)
         }else{
             choices += '<option value="' + num + '">' + month[i] + '</option>';
-            // console.log(choices)
         }
-        
-        
     }
-
     monthInput.innerHTML = choices
 }
 
@@ -98,34 +93,25 @@ for(var i=0, l=yearA.childNodes.length; i<l; i++){
     if (yearA.childNodes[i].nodeName === 'OPTION') yearArray.push(yearA.childNodes[i].value)
 
 }
-
-
 for(var a = 0; a<yearArray.length; a++){
-   prob(yearArray[a])
-   
+   prob(yearArray[a])  
 }
-
 function prob(year){
 
     for(var b=0; b<monthArray.length; b++){
         var yearMonth = year+monthArray[b]
         yearMonthTotal.push(yearMonth)
     }
-
 }
 
 var year01;
 var month01;
 
 yearA.addEventListener('change', (e)=>{
-    // TODO Should I try to create a new function for this?
 
     var el = document.getElementById('inputYear01');
     year01 = el.options[el.selectedIndex].value
 
-    // console.log(year01)
-    // alert(year01)
-    // console.log(year01) return the value of the selected year
 })
 
 monthA.addEventListener('change', (e)=>{
@@ -133,7 +119,7 @@ monthA.addEventListener('change', (e)=>{
     var el = document.getElementById('inputMonth01');
     month01 = el.options[el.selectedIndex].value
     // above this will be the user input for the selected Month they want to search for 
-    // console.log(month01)
+
 })
 
 var year02;
@@ -145,8 +131,6 @@ yearB.addEventListener('change', (e)=>{
     var el = document.getElementById('inputYear01');
     year02 = el.options[el.selectedIndex].value
 
-    // console.log(year01)
-    // alert(year01)
     // console.log(year01) return the value of the selected year
 })
 
@@ -155,29 +139,49 @@ monthB.addEventListener('change', (e)=>{
     var el = document.getElementById('inputMonth01');
     month02 = el.options[el.selectedIndex].value
     // above this will be the user input for the selected Month they want to search for 
-    // console.log(month01)
+
 })
-
-
-
 
 function generate(dataA,dataB, monthList) {
 
-    // TODO Process the data here!
+
+    var sA = document.querySelector('#state1')
+    var sB = document.querySelector('#state2')
+
+    let stateA = capitalizeLetter(sA)
+    let stateB = capitalizeLetter(sB)
+
+
+
 
     var monthLabels = []
     for(var f=0; f<monthList.length; f++){
 
         Object.keys(wordsMonth).forEach(function (el) {
 
-            if(wordsMonth[el] ===monthList[f]){
+            if(wordsMonth[el] === monthList[f]){
                 monthLabels.push(el)
             }
         })
-            //  console.log(el) //this will be the key
-            //  console.log(wordsMonth[key]) //this is the value "01"....
+
     }
+
+    let randomColors = []
+
+    for (let x = 0; x < monthLabels.length; x++) {
+            
+        // Generate random red, blue, green
+        let red = Math.floor(Math.random() * 255)
+        let blue = Math.floor(Math.random() * 255)
+        let green = Math.floor(Math.random() * 255)
+        // Create a color using rgb(r, g, b) format
+        let color = `rgb(${red}, ${green}, ${blue})`
+        randomColors.push(color)
     
+    }
+
+    console.log(randomColors)
+
 
     var newChart = new Chart(chart, {
 
@@ -185,17 +189,15 @@ function generate(dataA,dataB, monthList) {
         data: {
             labels: monthLabels,
             datasets: [{
-                label: 'state 1',
-                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#FF5733"],
+                label: stateA,
+                backgroundColor: randomColors,
                 yAxisID: "y-axis-1",
-                // ! DATA is here
                 data: dataA
 
             }, {
-                label: 'state 2',
+                label: stateB,
                 backgroundColor: ['#8a8474'],
                 yAxisID: "y-axis-2",
-                // ! DATA is here
                 data: dataB
 
             }]
@@ -204,7 +206,7 @@ function generate(dataA,dataB, monthList) {
             responsive: true,
             title: {
                 display: true,
-                text: "Chart.js Bar Chart - Multi Axis"
+                text: "Bar Chart for Fuels Net Generate at " + stateA + " and " + stateB
             },
             tooltips: {
                 mode: 'index',
