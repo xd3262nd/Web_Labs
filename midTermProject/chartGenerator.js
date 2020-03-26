@@ -230,9 +230,12 @@ function generate(dataA,dataB, monthList) {
             }
         }
 
+        
+
 
 
     })
+    chart.update();
 }
 
 
