@@ -156,10 +156,7 @@ function dataProcess(dataSet, stateName, indexList){
 
             retrieveData(stateID, indexList)
 
-        }else{
-            alert("The " + stateName + "is not a state name. Please enter again!")
         }
-
 
 
     })
