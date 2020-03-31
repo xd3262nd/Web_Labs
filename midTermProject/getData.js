@@ -3,9 +3,6 @@ var stateIDList = 'https://api.eia.gov/category/?api_key=563a38170142e2aa6fea13b
 var selectedStateA;
 var energyLink = 'https://api.eia.gov/series/?api_key=563a38170142e2aa6fea13b9725fa259&series_id='
 
-// var url ='https://api.wheretheiss.at/v1/satellites/25544'
-
-
 var stateA = document.querySelector('#state1')
 var stateB = document.querySelector('#state2')
 
@@ -14,7 +11,8 @@ var buttonEl = document.querySelector("#Generate")
 var dataSetA = [];
 
 
-var dateList = []
+var dateList = [];
+var stateList = ["Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District Of Columbia", "Federated States Of Micronesia", "Florida", "Georgia", "Guam", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Marshall Islands", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Northern Mariana Islands", "Ohio", "Oklahoma", "Oregon", "Palau", "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virgin Islands", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
 
 
 
@@ -38,23 +36,15 @@ buttonEl.addEventListener("click", () => {
 
     } else if (yearAValue === yearBValue){
 
-
         // * this will be when having the same year
 
         if(monthAValue > monthBValue){
             alert('put valid month')
         }else{
-
-
             start = yearAValue + monthAValue //201901
             end = yearBValue + monthBValue //201912
-
+            //return list of index will have endDate first and startDate last
             dateList = indexFunction (start, end)
-
-
-            console.log(dateList)
-
-
 
         }
 
@@ -66,40 +56,52 @@ buttonEl.addEventListener("click", () => {
         startYear = yearAValue + monthAValue
         endYear = yearBValue + monthBValue
 
-
-
         //return list of index will have endDate first and startDate last
         dateList = indexFunction(startYear, endYear)
 
     }
 
-    var letters = /^[A-Z a-z]+$/;
-
+    // var letters = /^[A-Z a-z]+$/;
     var idA;
     var idB;
-
     var dataSetA = {};
     var dataSetB = {};
 
-    if (!inputA || !inputB) {
-        stateA.value = ''
-        alert('Please enter your input')
-    } else if (!inputA.match(letters) || !inputB.match(letters)) {
-
-        stateA.value = ''
-        alert('Please enter letter only!')
+    if(!inputA || !inputB){
+        alert('Please enter your inputs for both state')
     } else {
 
-        retrieveID(inputA,dateList, dataProcess)
-        retrieveID(inputB,dateList, dataProcess)
-
-
-        } 
+        validateName (inputA, inputB)        
+    }
         
         
     
 })
 
+function validateName(inputA, inputB){
+    let a = 0
+    let b = 0
+
+    for( var i = 0; i<stateList.length; i++){
+        let stateName = stateList[i].toLowerCase()
+        if (stateName === inputA.toLowerCase()){
+            a = a+ 1
+        } else if (stateName === inputB.toLowerCase()){
+            b = b+ 1
+        }
+    }
+
+    if (a == 1 && b==1){
+        retrieveID(inputA,dateList, dataProcess)
+        retrieveID(inputB,dateList, dataProcess)
+    } else{
+        alert('Please check your state name')
+    }
+
+
+
+
+}
 
 
 
@@ -110,14 +112,10 @@ function indexFunction(start, end){
     for(var i = 0; i<yearMonthTotal.length; i++){
         if(yearMonthTotal[i] === end){
             ar.unshift(i)
-            console.log(ar + " start")
         }else if(yearMonthTotal[i] === start ){
             ar.push(i)
-            console.log(ar + " hello")
-
         }
     }
-    // console.log(ar)
     return ar
 
 }

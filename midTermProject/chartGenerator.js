@@ -126,7 +126,6 @@ var year02;
 var month02;
 
 yearB.addEventListener('change', (e)=>{
-    // TODO Should I try to create a new function for this?
 
     var el = document.getElementById('inputYear01');
     year02 = el.options[el.selectedIndex].value
