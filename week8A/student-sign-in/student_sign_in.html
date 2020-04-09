@@ -34,7 +34,6 @@
             </div>
 
             <!-- ! This is the button section -->
-            <!-- TODO v-on:click event handler -->
             <button class="btn btn-primary" v-on:click.prevent="addStudent">Add</button>
         </div>
 
@@ -47,17 +46,13 @@
                         <th>StarID</th>
                         <th>Present?</th>
                     </tr>
-                    <!-- TODO create table rows
-                    Each row will have a checkbox, bound to the app data
-                    When the checkbox is checked/unchecked, the student will be signed in/out 
-                    Add styles so present and absent student rows have different styles
-                     -->
-                     <tr v-for="student in students" v-bind:class="'present-'+student.present">
-                         <td>{{student.name}}</td>
-                         <td>{{student.starID}}</td>
+                    
+                    <tr v-for="student in students" v-bind:class="{ present: student.present, absent: !student.present }">
+                        <td>{{student.name}}</td>
+                        <td>{{student.starID}}</td>
                          <!-- ! adding the present/absent checkbox by using v-model student.present -->
                          <!-- ! can change the v-on with @; EX: @change for v-on:change -->
-                         <td> <input type = "checkbox" v-model = "student.present"  v-on:change = "checked(student)" > </td>
+                        <td> <input type = "checkbox" v-model = "student.present"  v-on:change = "checked(student)" > </td>
                      </tr>
 
                 </table>
@@ -65,7 +60,6 @@
         </div>
 
         <transition name="fade">
-            <!-- TODO welcome or goodbye message -->
             <div class = " alert alert-success" v-if="seeMessage"> {{message}} {{mostRecentSignIn}}</div>
         </transition>
     </div>
@@ -98,12 +92,9 @@
 
                     // Adding the errors parameter here to be used later
                     this.errors = []
-
-                // TODO modify this 
-
             
                     if ( this.newStudentName && this.newStarID ) {
-                        let student = { name: this.newStudentName, starID: this.newStarID }
+                        let student = {name: this.newStudentName, starID: this.newStarID, present: false}
                         this.students.push(student)
                         this.students.sort(function (s1,s2) {
                             //returning -1 if the student should be before the second student
@@ -126,10 +117,7 @@
                     if ( !this.newStarID){
                         this.errors.push("starID is required")
                     }
-                    // else {
-                    //     // Adding error message to the user
-                    //     this.errors.push('Name and starID are both required!')
-                    // }
+ 
 
 
                     
@@ -138,7 +126,6 @@
                 checked ( student ){
                     this.message = student.present ? 'Welcome, ' : 'Goodbye, '
                     this.mostRecentSignIn = student.name
-                    // this.seeMessage = true
                     this.showMessage() 
                     // call function instead of setting showMessage 
                     // functions are useful in case other parts of the app need to show messages
