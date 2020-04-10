@@ -13,8 +13,7 @@
 <body>
     <div id="app">
 
-        <!-- TODO change header text to include name of activity -->
-        <h1 class="text-center">{{ activity }}! Time Tracker</h1>
+\        <h1 class="text-center">{{ activity }}! Time Tracker</h1>
 
         <div id="add-hours" class="card">
 
@@ -22,31 +21,28 @@
             <div class="card-body">
 
                 <form>
-
-                    <!-- TODO show error alert with list of errors,
-                         if there are errors in the form -->
                     
                     <div class="alert alert-danger" v-show="errors && errors.length > 0">
                         <li v-for="error in errors">{{error}}</li>
                     </div>
                     
                     <div class="form-group">
-                        <!-- TODO change label message to include name of activity -->
+                        <!-- change label message to include name of activity -->
                         <label class="form-label" for="when">When did you {{activity | lowercase }}?</label>
-                        <!-- TODO v-model to app data property -->
+                        <!-- v-model to app data property -->
                         <input id="when" class="form-control" type="date" v-model.lazy="when" >
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="howLong">How long did you practice for, in hours?</label>
-                        <!-- TODO v-model to app data property -->
+                        <!-- v-model to app data property -->
                         <input id="howLong" class="form-control" v-model.number.lazy="howLong">
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="type">What type?</label>
-                        <!-- TODO create a select. v-model type -->
-                        <!-- TODO create one option for each type  -->
+                        <!-- create a select. v-model type -->
+                        <!-- create one option for each type  -->
                         <select class="form-control" v-model="type">
                             <option v-for="type in types" v-bind:value="type">{{type}}</option>
 
@@ -54,19 +50,19 @@
                     </div>
 
                     <div class="form-check-inline">
-                        <!-- TODO v-model, v-bind value -->
+                        <!-- v-model, v-bind value -->
                         <input id="v2" class="form-check-input" type="radio" v-bind:value="traditional" v-model="digitalTraditional">
                         <label class="form-check-label" for="v1">{{traditional}}</label>
                     </div>
 
                     <div class="form-check-inline">
-                        <!-- TODO v-model, v-bind value -->
+                        <!-- v-model, v-bind value -->
                         <input id="v1" class="form-check-input" type="radio" v-bind:value="digital" v-model="digitalTraditional">
                         <label class="form-check-label" for="v1">{{digital}}</label>
                     </div>
 
                     <div>
-                        <!-- TODO v-on click event -->
+                        <!-- v-on click event -->
                         <button class="btn btn-primary mt-2" type="button" v-on:click="submit">Add record</button>
                     </div>
 
@@ -78,7 +74,7 @@
             <h2 class="card-header">Activity Record</h2>
 
             <div class="card-body">
-                <!-- TODO display the number of records  -->
+                <!-- display the number of records  -->
                 <h3> {{activityRecords.length}} record(s)</h3>
 
                 <div id="records">
@@ -89,8 +85,8 @@
                             <th>Type</th>
                             <th>Digital or traditional?</th>
                         </tr>
-                        <!-- TODO display one table row for each activityRecord  -->
-                        <!-- TODO need to add validation -> do not accept any blank fields, invalid dates, and non numerical values for howLong -->
+                        <!-- display one table row for each activityRecord  -->
+                        <!-- need to add validation -> do not accept any blank fields, invalid dates, and non numerical values for howLong -->
                         <tr v-for="record in activityRecords">
                             <td>{{ record.when | shortDateFormat }}</td>
                             <td>{{ record.howLong}}</td>
@@ -107,11 +103,11 @@
             <h2 class="card-header">Summary</h2>
 
             <div class="card-body">
-                <!-- TODO use computed property to display total hours -->
+                <!-- use computed property to display total hours -->
                 <p>You have practiced a total of {{totalHours}} hours, broken down as follows:</p>
                 
-                <!-- TODO computed property to display total for each type  -->
-                <!-- <p>TODO total for each type</p> -->
+                <!-- computed property to display total for each type  -->
+                <!-- total for each type -->
 
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" v-for="hours, type in totalHoursByType">{{type}}: {{hours}}</li>
