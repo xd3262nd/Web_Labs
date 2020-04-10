@@ -2,3 +2,15 @@
     max-height: 250px;
     overflow: scroll;
 }
+.sketching {
+    color: purple;
+
+}
+
+.drawing {
+    color: blue;
+}
+
+.painting {
+    color: green;
+}

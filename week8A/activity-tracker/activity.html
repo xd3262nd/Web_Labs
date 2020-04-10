@@ -70,7 +70,7 @@
 
                     <div class="form-check-inline">
                         <!-- v-model, v-bind value -->
-                        <input class="form-check-input" type="checkbox" v-on:change="finish" v-model="finishStatus" >
+                        <input class="form-check-input" type="checkbox" v-model="finishStatus" >
                         <label class="form-check-label" for="v1">{{ finish }}?</label>
                     </div>
 
@@ -97,7 +97,7 @@
                             <th>How long?</th>
                             <th>Type</th>
                             <th>Digital or traditional?</th>
-                            <th>Finish</th>
+                            <th>Completion Status</th>
                             <th>Notes</th>
                         </tr>
                         <!-- display one table row for each activityRecord  -->
@@ -107,7 +107,7 @@
                             <td>{{ record.howLong | setDecimalPlaces}}</td>
                             <td>{{ record.type}}</td>
                             <td>{{ record.digitalTraditional}}</td>
-                            <td>{{ record.finishStatus }}</td>
+                            <td>{{ record.status }}</td>
                             <td>{{ record.notes | wordsLimit}}</td>
                         </tr>
                     </table>
@@ -149,9 +149,11 @@
                 types: ['sketching', 'painting', 'drawing'],
                 digital: 'digital',
                 traditional: 'traditional',
-                finish: 'Finish',
+                finish: 'Completed',
+                finishStatus: false,
                 notes: '',
-                errors: []
+                errors: [],
+                status: ''
             },
             filters: {
                 lowercase(text) {
@@ -211,12 +213,13 @@
                     }
 
                     if(this.errors.length == 0 ) {
+                        this.status = this.finishStatus ? 'completed' : 'incomplete';
                         let record = {
                             when: this.whenLocal,
                             howLong: this.howLong,
                             type: this.type,
                             digitalTraditional: this.digitalTraditional,
-                            finishStatus: this.finishStatus,
+                            status: this.status,
                             notes: this.notes
                         }
                         this.activityRecords.push(record)
